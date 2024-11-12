@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--        Spring container(Bean Container, DI Container, IoC Container, Lightweight Container)-->
+<!--        사용단계-->
+<!--        1. maven 의존성 추가 : spring-context-->
+<!--        2. bean Configuration file 작성 (bean definition file)-->
+<!--        3. bean의 형태로 객체를 등록(class, id)-->
+<!--        4. 등록된 bean들간의 의존관계 형성-->
+<!--            Dependency Injection-->
+<!--            1) constructor injection ; constructor-arg-->
+<!--            2) setter injection ; property-->
+<!--        5. entry point에서 컨테이너 객체 생성-->
+<!--            ApplicationContext-->
+<!--            6. getBean의 형태로 필요 빈을 검색 class id-->
+
+<!--    컨테이너의 빈 관리 특성
+        1. 특별한 설정(Scope)이 없는 한, 빈을 싱글톤으로 관리함 : 싱글톤의 대상은 클래스가 아니다 대상은 Bean-->
+<!--        scope : prototype 인 경우 매번 주입될때마다 새로운 인스턴스가 생성되는 구조.-->
+<!--    2. 특별한 설정이 없는 한 등록된 모든 빈을 컨테이너가 초기화될때 일시에 객체를 생성함 eager loading-->
+<!--        lazy-init="true" - lazy-loading (주입될때 늦게 객체를 생성함.)
+            scope="prototype" - lazy설정이 포함되어있음 -->
+<!--    3. 컨테이너는 빈의 생명주기에 맞는 콜백의 구조를 가짐.
+            init-method(객체 생성후 필요한 주입이 완료된 후 호출되는 콜백), destroy-method-->
+
+
+<!--    CoC(Convention Over Configuration-->
+    <bean class="kr.or.ddit.lab02.objs.Bar" id="bar"
+          init-method="inita"
+          destroy-method="destroy"
+    />
+    <bean class="kr.or.ddit.lab02.objs.Baz" id="baz"
+    />
+
+<!--    new Foo(baz) new Foo(new Baz())-->
+    <bean class="kr.or.ddit.lab02.objs.Foo" id="foo1"
+          init-method="inita"
+          destroy-method="destroy"
+    >
+
+        <constructor-arg ref="baz">
+<!--            <bean class="kr.or.ddit.lab02.objs.Baz"/>-->
+        </constructor-arg>
+
+        <property name="bar" ref="bar"></property>
+    </bean>
+
+</beans>

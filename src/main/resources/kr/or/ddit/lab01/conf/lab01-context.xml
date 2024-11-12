@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="kr.or.ddit.lab01.dao.DummyDaoImpl_Oracle" id="daoOracle"/>
+    <bean class="kr.or.ddit.lab01.dao.DummyDaoImpl_MariaDB" id="daoMaria"/>
+
+    <bean class="kr.or.ddit.lab01.service.DummyServiceImpl" id="service">
+        <constructor-arg name="dao" ref="daoMaria"></constructor-arg>
+    </bean>
+
+    <bean class="kr.or.ddit.lab01.controller.DummyController">
+        <property name="service" ref="service"></property>
+    </bean>
+</beans>

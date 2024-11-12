@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean class="kr.or.ddit.lab03.objs.HuntingDog" id="huntingDog" scope="prototype"/>
+    <bean class="kr.or.ddit.lab03.objs.Shotgun" id="shotgun" scope="prototype"/>
+    <bean class="kr.or.ddit.lab03.objs.Hunter" id="hunter" scope="prototype"><constructor-arg ref="shotgun"/></bean>
+
+    <bean class="java.util.HashMap"></bean>
+    <bean class="java.util.HashSet"></bean>
+
+    <util:map id="dogMap" map-class="java.util.LinkedHashMap"
+              key-type="java.lang.String" value-type="kr.or.ddit.lab03.objs.HuntingDog">
+        <entry key="type1" value-ref="huntingDog"/>
+        <entry key="type2" value-ref="huntingDog"/>
+        <entry key="type3" value-ref="huntingDog"/>
+    </util:map>
+
+
+    <util:set id="gunSet" >
+        <ref bean="shotgun"/>
+        <ref bean="shotgun"/>
+        <ref bean="shotgun"/>
+    </util:set>
+
+    <util:list id="hunterList">
+        <ref bean="hunter"/>
+        <ref bean="hunter"/>
+        <ref bean="hunter"/>
+    </util:list>
+
+    <util:constant static-field="java.time.Month.FEBRUARY" id="feb"/>
+
+    <util:properties location="classpath:kr/or/ddit/db/DBInfo.properties" id="dbInfo"/>
+
+    <bean class="kr.or.ddit.lab03.objs.HuntingGround">
+        <constructor-arg name="month" ref="feb"/>
+        <constructor-arg name="dogMap" ref="dogMap"/>
+        <constructor-arg name="gunSet" ref="gunSet"/>
+        <property name="hunterList" ref="hunterList"/>
+    </bean>
+
+</beans>
