@@ -8,13 +8,19 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.beans.ConstructorProperties;
 
+@Service
 @NoArgsConstructor
 //@RequiredArgsConstructor
 @AllArgsConstructor
-@Setter
+//@Setter
 public class DummyServiceImpl implements DummyService {
     //    1. 의존 객체 직접 생성 (non-DI) - 결합력 최상
 //    DummyDAO dao = new DummyDaoImpl_Oracle();
@@ -24,7 +30,13 @@ public class DummyServiceImpl implements DummyService {
 //    3. Strategy Pattern : 전략 주입자가 필요하고, 결합력이 주입자에게 전달됨. ==> DI container 필요
 
     private DummyDAO dao;
-
+//    @Autowired
+//    @Resource(name="dummyDaoImpl_MariaDB")
+    @Inject
+    @Named("dummyDaoImpl_MariaDB")
+    public void setDao(DummyDAO dao) {
+        this.dao = dao;
+    }
 
     @Override
     public StringBuffer readOne(int pk) {

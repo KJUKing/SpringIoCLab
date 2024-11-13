@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+<!--    spEL deep copy : util, constructor injection-->
+
+
+    <context:property-placeholder location="classpath:kr/or/ddit/db/DBInfo.properties"/>
+
+    <util:properties id="dbInfo" location="classpath:kr/or/ddit/db/DBInfo.properties">
+
+    </util:properties>
+<!--    <bean class="kr.or.ddit.lab05.objs.DBInfoVO" id="copyVO1">-->
+<!--        <constructor-arg name="driverClassName" value="#{dbInfo['dev.driverClassName']}"/>-->
+<!--        <constructor-arg name="url" value="#{dbInfo['dev.url']}"/>-->
+<!--        <constructor-arg name="user" value="#{dbInfo['dev.user']}"/>-->
+<!--        <constructor-arg name="password" value="#{dbInfo['dev.password']}"/>-->
+<!--        <constructor-arg name="maxWait" value="#{dbInfo['maxWait']}"/>-->
+<!--    </bean>-->
+
+<!--    placeholder deep copy : context, setter injection-->
+    <bean class="kr.or.ddit.lab05.objs.DBInfoVO" id="copyVO2">
+        <property name="driverClassName" value="${dev.driverClassName}"/>
+        <property name="url" value="${dev.url}"/>
+        <property name="maxWait" value="${maxWait}"/>
+    </bean>
+
+
+
+
+<!--    모든 주입 완료는 DBInfoVO 내의 콜백을 통해 콘솔에 출력하여 확인함-->
+</beans>
