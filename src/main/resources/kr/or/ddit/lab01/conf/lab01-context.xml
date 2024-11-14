@@ -11,6 +11,6 @@
     </bean>
 
     <bean class="kr.or.ddit.lab01.controller.DummyController">
-        <property name="service" ref="service"></property>
+        <constructor-arg name="service" ref="service"></constructor-arg>
     </bean>
 </beans>
